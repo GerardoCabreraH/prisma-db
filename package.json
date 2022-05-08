@@ -1,0 +1,22 @@
+{
+  "name": "prisma-db",
+  "version": "1.0.0",
+  "description": "Conectar aplicación NodeJS con la base de datos mediante Prisma DB",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.18.1",
+    "prisma": "^3.13.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.13.0"
+  }
+}
