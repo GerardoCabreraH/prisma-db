@@ -4,7 +4,7 @@ Conectar aplicación NodeJS con la base de datos mediante Prisma DB
 
 ## Documentación
 
-[Ejercicio](https://github.com/GerardoCabreraH)
+[Ejercicio](https://github.com/GerardoCabreraH/prisma-db/blob/main/docs/documentation.md)
 
 ## Datos
 - Gerardo Cabrera
