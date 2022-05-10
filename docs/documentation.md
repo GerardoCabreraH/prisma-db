@@ -362,3 +362,127 @@ UPDATE A STUDENT
 DELETE A STUDENT
 
 ![delete-a-student](./img/delete-a-student.png)
+
+## CRUD missionCommander
+
+1.- Crear modelo para migrar una tabla en `prisma/schema.prisma` y correr la migración `npx prisma migrate dev --name ini`
+```
+model missionCommander {
+  id Int @id @default(autoincrement())
+  name String @unique
+  username String @db.VarChar(255)
+  mainStack String @db.VarChar(255)
+  currentEnrollment Boolean @default(false)
+  hasAzureCertification Boolean @default(false)
+} 
+```
+
+![table-mission-commander](./img/table-mission-commander.png)
+
+2.- Crear seeder `missionCommanderSeeder.js` para llenar la tabla y correrlo mediante `node prisma/missionCommanderSeeder.js`
+```
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+
+(async function main() {
+  try {
+    const woopa = await prisma.missionCommander.upsert({
+      where: { name: "Woopa" },
+      update: {},
+      create: {
+        name: "Woopa",
+        username: "ajolonauta",
+        mainStack: "Node",
+      },
+    });
+
+    const woopa1 = await prisma.missionCommander.upsert({
+      where: { name: "Woopa1" },
+      update: {},
+      create: {
+        name: "Woopa1",
+        username: "ajolonauta1",
+        mainStack: "Node",
+      },
+    });
+
+    const woopa2 = await prisma.missionCommander.upsert({
+      where: { name: "Woopa 2" },
+      update: {},
+      create: {
+        name: "Woopa 2",
+        username: "ajolonauta2",
+        mainStack: "Java",
+      },
+    });
+
+    const woopa3 = await prisma.missionCommander.upsert({
+      where: { name: "Woopa 3" },
+      update: {},
+      create: {
+        name: "Woopa 3",
+        username: "ajolonauta3",
+        mainStack: "Node",
+      },
+    });
+
+    console.log("Create 4 mission commander");
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+  }
+})();
+```
+
+![seed-mission-commander](./img/seed-mission-commander.png)
+
+Crear rutas CRUD en `server.js`
+
+```
+app.get("/mission-commanders", async (req, res) => {
+  const allMissionCommanders = await prisma.student.findMany({});
+  res.json(allMissionCommanders);
+});
+
+app.get("/mission-commanders/:id", async (req, res) => {
+  const id = req.params.id;
+  const missionCommander = await prisma.missionCommander.findUnique({
+    where: { id: parseInt(id) },
+  });
+  res.json(student);
+});
+
+app.post("/mission-commander", async (req, res) => {
+  const missionCommander = {
+    name: req.body.name,
+    username: req.body.username,
+    mainStack: req.body.mainStack,
+  };
+  const message = "Mission Commander creado con éxito";
+  await prisma.missionCommander.create({ data: missionCommander });
+  return res.json({ message });
+});
+
+app.put("/mission-commanders/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+
+  await prisma.missionCommander.update({
+    where: {
+      id: id,
+    },
+    data: {
+      mainStack: req.body.mainStack,
+    },
+  });
+
+  return res.json({ message: "Mission Commander modificado con éxito" });
+});
+
+app.delete("/mission-commanders/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  await prisma.missionCommander.delete({ where: { id: id } });
+  return res.json({ message: "Mission Commander eliminado con éxito" });
+});
+```
