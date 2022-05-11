@@ -120,7 +120,7 @@ app.get("/mission-commanders/:id", async (req, res) => {
   res.json(student);
 });
 
-app.post("/mission-commander", async (req, res) => {
+app.post("/mission-commanders", async (req, res) => {
   const missionCommander = {
     name: req.body.name,
     username: req.body.username,
