@@ -108,7 +108,7 @@ app.delete("/students/:id", async (req, res) => {
 });
 
 app.get("/mission-commanders", async (req, res) => {
-  const allMissionCommanders = await prisma.student.findMany({});
+  const allMissionCommanders = await prisma.missionCommander.findMany({});
   res.json(allMissionCommanders);
 });
 
@@ -117,7 +117,7 @@ app.get("/mission-commanders/:id", async (req, res) => {
   const missionCommander = await prisma.missionCommander.findUnique({
     where: { id: parseInt(id) },
   });
-  res.json(student);
+  res.json(missionCommander);
 });
 
 app.post("/mission-commanders", async (req, res) => {

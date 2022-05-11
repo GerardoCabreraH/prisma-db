@@ -442,7 +442,7 @@ Crear rutas CRUD en `server.js`
 
 ```
 app.get("/mission-commanders", async (req, res) => {
-  const allMissionCommanders = await prisma.student.findMany({});
+  const allMissionCommanders = await prisma.missionCommander.findMany({});
   res.json(allMissionCommanders);
 });
 
@@ -451,10 +451,10 @@ app.get("/mission-commanders/:id", async (req, res) => {
   const missionCommander = await prisma.missionCommander.findUnique({
     where: { id: parseInt(id) },
   });
-  res.json(student);
+  res.json(missionCommander);
 });
 
-app.post("/mission-commander", async (req, res) => {
+app.post("/mission-commanders", async (req, res) => {
   const missionCommander = {
     name: req.body.name,
     username: req.body.username,
